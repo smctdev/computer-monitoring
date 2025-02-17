@@ -21,6 +21,7 @@ services:
       DB_DATABASE: computer_monitoring
       DB_USERNAME: smct
       DB_PASSWORD: smct
+      APP_DEBUG: false
 
 
   computer-nginx:
