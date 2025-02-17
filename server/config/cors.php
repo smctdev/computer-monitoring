@@ -18,7 +18,7 @@ return [
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
-    'allowed_origins' => ['http://136.239.196.178:5000', 'https://desstrongmotors.com/monitoring', 'http://localhost:5000', 'https://smctdevt.github.io/smctloder/','https://computer_monitoring.smctgroup.ph/','192.168.1.100:9001'],
+    'allowed_origins' => ['http://136.239.196.178:5000', 'https://desstrongmotors.com/monitoring', 'http://localhost:5000', 'https://smctdevt.github.io/smctloder/','https://computer_monitoring.smctgroup.ph','192.168.1.100:9001'],
 
     'allowed_origins_patterns' => [],
 
