@@ -1,4 +1,4 @@
-import "./styles/tailwind.css";
+import "./styles/Tailwind.css";
 import LogIn from "./Request/Login";
 import { Routes, Route } from "react-router-dom";
 import Forgot from "./Request/Forgot";
