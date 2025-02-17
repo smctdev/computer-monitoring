@@ -14,8 +14,8 @@ class ComputerUserController extends Controller
 {
     public function index()
     {
-        $allComputerUsers = ComputerUser::orderBy('id', 'asc')->with('branchCode', 'position', 'computers', 'computers.units.category', 'computers.units.supplier')->get();
-        $computerSetUsers = ComputerUser::orderBy('id', 'asc')->with('computers', 'computers.units.category', 'computers.units.supplier')->whereHas('computers')->get();
+        $allComputerUsers = ComputerUser::query()->with('branchCode', 'position', 'computers', 'computers.units.category', 'computers.units.supplier')->orderBy('id', 'asc')->paginate(5);
+        $computerSetUsers = ComputerUser::query()->with('computers', 'computers.units.category', 'computers.units.supplier')->orderBy('id', 'asc')->whereHas('computers')->get();
 
 
         if ($allComputerUsers->count() > 0) {
@@ -58,7 +58,7 @@ class ComputerUserController extends Controller
         ]);
 
 
-        if($request->has('email') && $request->email != null){
+        if ($request->has('email') && $request->email != null) {
             $validation = Validator::make($request->all(), [
                 'email'                          =>              ['unique:computer_users,email', 'lowercase', 'regex:/^\S+@\S+\.\S+$/'],
             ]);

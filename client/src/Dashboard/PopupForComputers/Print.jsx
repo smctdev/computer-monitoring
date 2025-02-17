@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import "../../styles/printing.css";
+import "../../styles/Printing.css";
 import header from "../../img/headerForPrinting.png";
 import {
   Table,
