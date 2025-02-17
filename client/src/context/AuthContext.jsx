@@ -11,10 +11,10 @@ export const AuthProvider = ({ children }) => {
   const [isRequiredChangePassword, setIsRequiredChangePassword] =
     useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState([]);
-  
+
   useEffect(() => {
-    const token = Cookies.get("token");
     const fetchUserProfile = async () => {
       const token = Cookies.get("token");
       if (!token) {
@@ -23,24 +23,29 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(false);
         return;
       }
-      setLoading(true);
+      if (isLogin) {
+        setLoading(true);
+      }
       try {
         const response = await api.get("/profile");
 
         const data = response.data.data;
 
-        setUser(data);
+        if (response.status === 200) {
+          setUser(data);
+          setIsAuthenticated(true);
 
-        if (data.role === "admin") {
-          setIsAdmin(true);
-        } else {
-          setIsAdmin(false);
-        }
+          if (data.role === "admin") {
+            setIsAdmin(true);
+          } else {
+            setIsAdmin(false);
+          }
 
-        if (data.request_new_password === 1) {
-          setIsRequiredChangePassword(true);
-        } else {
-          setIsRequiredChangePassword(false);
+          if (data.request_new_password === 1) {
+            setIsRequiredChangePassword(true);
+          } else {
+            setIsRequiredChangePassword(false);
+          }
         }
       } catch (error) {
         console.error("Failed to fetch user profile", error);
@@ -50,21 +55,15 @@ export const AuthProvider = ({ children }) => {
         }
       } finally {
         setLoading(false);
+        setIsLogin(false);
       }
     };
-
-    if (token) {
-      fetchUserProfile();
-      setIsAuthenticated(true);
-    } else {
-      setLoading(false);
-      setIsAuthenticated(false);
-    }
-  }, [isRefresh, isAuthenticated]);
+    fetchUserProfile();
+  }, [isRefresh, isLogin]);
 
   const login = (token) => {
     Cookies.set("token", token);
-    setIsAuthenticated(true);
+    setIsLogin(true);
   };
 
   const logout = () => {
