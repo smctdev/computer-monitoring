@@ -32,4 +32,4 @@ COPY --from=build /app/build /app/build
 EXPOSE 9001
 
 # Start the `serve` command to serve the static build
-CMD ["serve", "-s", "build", "-l", "3000"]
+CMD ["serve", "-s", "build", "-l", "9001"]
