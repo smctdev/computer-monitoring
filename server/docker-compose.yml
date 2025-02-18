@@ -12,6 +12,7 @@ services:
       - ./bootstrap/cache:/var/www/bootstrap/cache
       - ./:/var/www
       - ./docker-compose/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - computerMonitoringUploads:/var/www/public/users-profile
     networks:
       - computer
     environment:
@@ -38,6 +39,7 @@ services:
 
 volumes:
   computer_data:
+  computerMonitoringUploads:
 
 networks:
   computer:
